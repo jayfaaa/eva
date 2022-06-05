@@ -1,0 +1,116 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<div id="out" class="modal">
+  <p class="text-center">Do you want to logout?
+    <a class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center mt-2"
+    href ="{% url 'logout' %}">
+      Logout
+    </a></p>
+</div>
+<aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+  <div class="p-6">
+    <a
+      href="{% url 'app' %}"
+      class="text-white text-3xl font-semibold uppercase hover:text-gray-300"
+      >Eva</a
+    >
+  </div>
+  <nav class="text-white text-base font-semibold pt-3">
+    <a
+      href="{% url 'profile' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-tachometer-alt mr-3"></i>
+      Profile
+    </a>
+    <a
+      href="{% url 'evaluation_employee' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-sticky-note mr-3"></i>
+      Evaluation
+    </a><a
+    href="{% url 'ranking_employee' %}"
+    class="
+      flex
+      items-center
+      text-white
+      opacity-75
+      hover:opacity-100
+      py-4
+      pl-6
+      nav-item
+    "
+  >
+    <i class="fas fa-trophy mr-3"></i>
+    Ranking
+  </a>
+    <a
+      href="{% url 'evaluate_employee' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-sticky-note mr-3"></i>
+      Evaluate
+    </a>
+      <a
+      href="{% url 'about_employee' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-cog mr-3"></i>
+      About
+    </a>
+    <a
+      href="#out" rel="modal:open"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-sign-out-alt mr-3"></i>
+      Signout
+    </a>
+  </nav>
+</aside>

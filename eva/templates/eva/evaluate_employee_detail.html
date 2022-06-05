@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eva</title>
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"
+      integrity="sha512-pUhApVQtLbnpLtJn6DuzDD5o2xtmLJnJ7oBoMsBnzOkVkpqofGLGPaBJ6ayD2zQe3lCgCibhJBi4cj5wAxwVKA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Karla:400,700&display=swap");
+      .font-family-karla {
+        font-family: karla;
+      }
+      .bg-sidebar {
+        background: #3d68ff;
+      }
+      .cta-btn {
+        color: #3d68ff;
+      }
+      .upgrade-btn {
+        background: #1947ee;
+      }
+      .upgrade-btn:hover {
+        background: #0038fd;
+      }
+      .active-nav-link {
+        background: #1947ee;
+      }
+      .nav-item:hover {
+        background: #1947ee;
+      }
+      .account-link:hover {
+        background: #3d68ff;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-family-karla flex">
+    {% include 'includes/navbar_employees.html' %}
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
+      <!-- Desktop Header -->
+      {% include 'includes/header.html' %}
+
+      <!-- Mobile Header & Nav -->
+      <header
+        x-data="{ isOpen: false }"
+        class="w-full bg-sidebar py-5 px-6 sm:hidden"
+      >
+        <div class="flex items-center justify-between">
+          <a
+            href="index.html"
+            class="text-white text-3xl font-semibold uppercase hover:text-gray-300"
+            >Admin</a
+          >
+          <button
+            @click="isOpen = !isOpen"
+            class="text-white text-3xl focus:outline-none"
+          >
+            <i x-show="!isOpen" class="fas fa-bars"></i>
+            <i x-show="isOpen" class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Dropdown Nav -->
+        <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
+          <a
+            href="index.html"
+            class="flex items-center active-nav-link text-white py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-tachometer-alt mr-3"></i>
+            Dashboard
+          </a>
+          <a
+            href="blank.html"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-sticky-note mr-3"></i>
+            Blank Page
+          </a>
+          <a
+            href="tables.html"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-table mr-3"></i>
+            Tables
+          </a>
+          <a
+            href="forms.html"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-align-left mr-3"></i>
+            Forms
+          </a>
+          <a
+            href="tabs.html"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-tablet-alt mr-3"></i>
+            Tabbed Content
+          </a>
+          <a
+            href="calendar.html"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-calendar mr-3"></i>
+            Calendar
+          </a>
+          <a
+            href="#"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-cogs mr-3"></i>
+            Support
+          </a>
+          <a
+            href="#"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-user mr-3"></i>
+            My Account
+          </a>
+          <a
+            href="#"
+            class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item"
+          >
+            <i class="fas fa-sign-out-alt mr-3"></i>
+            Sign Out
+          </a>
+        </nav>
+      </header>
+      
+    <div class="w-full overflow-x-hidden border-t flex flex-col">
+      <main class="flex w-full p-6 justify-center">
+         {% if disable_evaluation_form %}
+          <div
+            class="flex flex-col px-4 text-red-500 border border-red-500 rounded-md py-5 mt-6"
+          >
+            Form is disabled.
+          </div>
+          {% else %}
+        <form class="w-11/12" action="{% url 'post_evaluate' %}" method="post">
+          {% csrf_token %}
+          <input
+                              type="text"
+                              name="evaluate_group"
+                              value="{{data.id}}"
+                              class="flex flex-grow w-16 justify-center self-center"
+                              style="display: contents"
+                            />
+          <div class="flex flex-col flex-row -mx-3 mb-6 max-w-6xl mx-auto">
+            <div class="w-full px-3">
+                <div class="flex flex-grow justify-start">
+                      <a
+                        class="
+                          flex-shrink-0
+                          bg-blue-600
+                          text-white text-base
+                          font-semibold
+                          py-2
+                          px-4
+                          rounded-lg
+                          shadow-md
+                          hover:bg-blue-800
+                          focus:outline-none
+                          focus:ring-2
+                          focus:ring-blue-500
+                          focus:ring-offset-2
+                          focus:ring-offset-blue-200
+                        "
+                        href = "{% url 'index' %}"
+                      >
+                        Back
+                      </a>
+                    </div><br>
+                    
+              <label
+                class="
+                  block
+                  uppercase
+                  tracking-wide
+                  text-gray-700 text-xs
+                  font-bold
+                  mb-2
+
+                "
+                for="grid-last-name"
+              > 
+                NAME <i>(optional)</i>
+              </label>
+              <input
+                class="
+                  appearance-none
+                  block
+                  w-full
+                  bg-gray-200
+                  text-gray-700
+                  border border-gray-200
+                  rounded
+                  py-3
+                  px-4
+                  leading-tight
+                  focus:outline-none focus:bg-white focus:border-gray-500
+                "
+                name="evaluator"
+                type="text"
+                placeholder="Doe"
+              />
+            </div>
+            {% if employees %}
+            <div class="w-full px-3 mb-6 md:mb-0">
+              <label
+                class="
+                  block
+                  uppercase
+                  tracking-wide
+                  text-gray-700 text-xs
+                  font-bold
+                  mb-2
+                  mt-5
+                "
+                for="grid-first-name"
+              >
+                EMPLOYEE NAME
+              </label>
+              <select
+                class="
+                  block
+                  appearance-none
+                  w-full
+                  bg-gray-200
+                  border border-gray-200
+                  text-gray-700
+                  py-3
+                  px-4
+                  pr-8
+                  rounded
+                  leading-tight
+                  focus:outline-none focus:bg-white focus:border-gray-500
+                "
+                name="employee"
+              >
+                {% for x in employees %}
+                <option value="{{ x.id }}">{{ x.first_name }} {{ x.last_name }}</option>
+                {% endfor %}
+              </select>
+              <p class="text-red-500 text-xs italic">
+                Please fill out this field.
+              </p>
+            </div>
+            {% else %}
+            <div class="w-full px-3 mb-6 md:mb-0">
+              <label
+                class="
+                  block
+                  uppercase
+                  tracking-wide
+                  text-gray-700 text-xs
+                  font-bold
+                  mb-2
+                  mt-5
+                "
+                for="grid-first-name"
+              >
+                EMPLOYEE NAME
+              </label>
+              <p class="text-red-500 text-xs italic">
+                No employees data!
+              </p>
+            </div>
+            {% endif %}
+          </div>
+          <div
+            class="
+              bg-white
+              shadow-lg
+              rounded-lg
+              flex flex-col flex-row -mx-3 mb-6 max-w-6xl mx-auto
+            "
+          >
+            <div class="w-full px-3">
+              <div class="w-full md:p-2 md:px-3 md:py-3">
+                <h1
+                  class="
+                    font-sans
+                    bg-black bg-cover
+                    text-white 
+                    md:text-3xl
+                    rounded
+                    text-center
+                  "
+                >
+                  EVALUATION FORM : {{data.name}} 
+                </h1>
+                <h3
+                  class="
+                    font-sans
+                    bg-black bg-cover
+                    text-white 
+                    md:text-3xl
+                    rounded
+                    text-center
+                  "
+                >
+                  EVALUATION CODE
+                </h3>
+                <h2 class="rounded-sm border-solid border-2 md:flex md:flex-row md:justify-center">
+                  <div
+                    class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    U = Unsatisfactory
+                  </div>
+                  <div
+                  class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    F = Fair
+                  </div>
+                  <div
+                  class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    S = Satisfactory
+                  </div>
+                  <div
+                    class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    V = Very Satisfactory
+                  </div>
+                </h2>
+                <div class="mt-2">
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div
+                        class="flex flex-grow w-64 justify-start text-2xl"
+                      ></div>
+                      <div class="flex flex-grow w-64"></div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        U
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        F
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        S
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        V
+                      </div>
+                    </div>
+                  </div>
+                  {% for category in categories %}
+                    <div class="flex flex-row bg-blue-400 mt-2">
+                      <div class="flex flex-grow-0 w-12"></div>
+                      <div class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4">{{ category.name }}</div>
+                    </div>
+                    {% for question in questions %}
+                      {% if question.category.id == category.id %}
+                        <div class="flex flex-row {% if forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                          <div class="flex flex-grow justify-center">
+                            <div class="flex flex-grow w-12"></div>
+                            <div class="md:flex-row flex-grow w-64 justify-start md:text-2xl">
+                              {{ question.name }}
+                            </div>
+                            <div class="flex flex-grow w-64"></div>
+                            <input
+                              type="radio"
+                              name="{{question.id}}"
+                              value="Unsatisfactory"
+                              class="flex flex-grow w-16 justify-center self-center"
+                            />
+                            <input
+                              type="radio"
+                              name="{{question.id}}"
+                              value="Fair"
+                              class="flex flex-grow w-16 justify-center self-center"
+                            />
+                            <input
+                              type="radio"
+                              name="{{question.id}}"
+                              value="Satisfactory"
+                              class="flex flex-grow w-16 justify-center self-center"
+                            />
+                            <input
+                              type="radio"
+                              name="{{question.id}}"
+                              value="Very Satisfactory"
+                              class="flex flex-grow w-16 justify-center self-center"
+                            />
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                  <!-- <div class="flex flex-row bg-blue-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4">JOB UNDERSTANDING</div>
+                  </div>
+                  {% for x in questions_ju %}
+                  <div class="flex flex-row {% if forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="md:flex-row flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.name }}
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="flex flex-row bg-red-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">JOB SKILLS</div>
+                  </div>
+                  {% for x in questions_js %}
+                  <div class="flex flex-row {% if not forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.name }}
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="flex flex-row bg-blue-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">ATTITUDE</div>
+                  </div>
+                  {% for x in questions_a %}
+                  <div class="flex flex-row {% if forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.name }}
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="flex flex-row bg-red-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">
+                      JOB RULES AND REGULATIONS
+                    </div>
+                  </div>
+                  {% for x in questions_jrar %}
+                  <div class="flex flex-row {% if not forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.name }}
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="{{x.id}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  {% endfor %} -->
+                  <div class="w-full md:w-auto px-3 justify-center">
+                    <label
+                      class="
+                        block
+                        uppercase
+                        tracking-wide
+                        text-gray-700 text-2xl
+                        font-bold
+                        mb-2
+                        mt-2
+                      "
+                      for="grid-last-name"
+                      >Comments and Recommendations</label
+                    >
+                    <input
+                      class="
+                        appearance-none
+                        block
+                        w-full
+                        bg-gray-200
+                        text-gray-700
+                        border border-gray-200
+                        rounded
+                        py-3
+                        px-4
+                        leading-tight
+                        focus:outline-none focus:bg-white focus:border-gray-500
+                      "
+                      name="comments"
+                      type="text"
+                      required
+                    />
+                  </div>
+                  {% if data.close_date >= date_today %}
+                  <div class="flex flex-row flex-wrap mt-6 self-auto">
+                    <div class="flex flex-grow justify-center">
+                      <button
+                        class="
+                          flex-shrink-0
+                          bg-blue-600
+                          text-white text-base
+                          font-semibold
+                          py-2
+                          px-4
+                          rounded-lg
+                          shadow-md
+                          hover:bg-blue-800
+                          focus:outline-none
+                          focus:ring-2
+                          focus:ring-blue-500
+                          focus:ring-offset-2
+                          focus:ring-offset-blue-200
+                        "
+                      >
+                        Submit Form
+                      </button>
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        {% endif %}
+      </main>
+    </div>
+    <!-- AlpineJS -->
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <!-- Font Awesome -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+      integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+
+    <!-- AlpineJS -->
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <!-- Font Awesome -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+      integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs="
+      crossorigin="anonymous"
+    ></script>
+        <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+      $(document).ready( function () {
+    $('#table').DataTable();
+} );
+    </script>
+  </body>
+
+
+
+</html>

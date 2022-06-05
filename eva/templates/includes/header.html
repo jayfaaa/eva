@@ -1,0 +1,56 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<div id="out" class="modal">
+  <p class="text-center">Do you want to logout?
+    <a class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center mt-2"
+    href ="{% url 'logout' %}">
+      Logout
+    </a></p>
+</div>
+<header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
+  {% load static %}
+        <div class="w-1/2"></div>
+        <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+          <div class="relative w-1/4 flex justify-end items-center mr-3">{{ request.session.full_name }}</div>
+          <button
+            @click="isOpen = !isOpen"
+            class="
+              realtive
+              z-10
+              w-12
+              h-12
+              rounded-full
+              overflow-hidden
+              border-4 border-blue-400
+              hover:border-blue-300
+              focus:border-blue-300 focus:outline-none
+            "
+          >
+          
+            <img src="{{request.session.image}}">
+        
+          </button>
+          <button
+            x-show="isOpen"
+            @click="isOpen = false"
+            class="h-full w-full fixed inset-0 cursor-default"
+          ></button>
+          <div
+            x-show="isOpen"
+            class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16"
+          >
+          {% if request.session.role == "admin" %}   
+            <a href="{% url 'profile_admin' %}" class="block px-4 py-2 account-link hover:text-white"
+              >Account</a
+            >
+            {% else %}   
+            <a href="{% url 'profile' %}" class="block px-4 py-2 account-link hover:text-white"
+              >Account</a
+            >{% endif %}
+            <a href="#out" rel="modal:open" class="block px-4 py-2 account-link hover:text-white"
+              >Sign Out</a
+            >
+          </div>
+        </div>
+      </header>

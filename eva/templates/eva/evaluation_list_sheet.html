@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eva</title>
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Karla:400,700&display=swap");
+      .font-family-karla {
+        font-family: karla;
+      }
+      .bg-sidebar {
+        background: #3d68ff;
+      }
+      .cta-btn {
+        color: #3d68ff;
+      }
+      .upgrade-btn {
+        background: #1947ee;
+      }
+      .upgrade-btn:hover {
+        background: #0038fd;
+      }
+      .active-nav-link {
+        background: #1947ee;
+      }
+      .nav-item:hover {
+        background: #1947ee;
+      }
+      .account-link:hover {
+        background: #3d68ff;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-family-karla flex">
+    {% include 'includes/navbar_employees.html' %}
+    <div class="w-full flex flex-col h-screen overflow-y-hidden">
+      <!-- Desktop Header -->
+      <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
+        <div class="w-1/2"></div>
+        <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
+          <button
+            @click="isOpen = !isOpen"
+            class="
+              realtive
+              z-10
+              w-12
+              h-12
+              rounded-full
+              overflow-hidden
+              border-4 border-gray-400
+              hover:border-gray-300
+              focus:border-gray-300 focus:outline-none
+            "
+          >
+            <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" />
+          </button>
+          <button
+            x-show="isOpen"
+            @click="isOpen = false"
+            class="h-full w-full fixed inset-0 cursor-default"
+          ></button>
+          <div
+            x-show="isOpen"
+            class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16"
+          >
+            <a href="#" class="block px-4 py-2 account-link hover:text-white"
+              >Account</a
+            >
+            <a href="#" class="block px-4 py-2 account-link hover:text-white"
+              >Support</a
+            >
+            <a href="#" class="block px-4 py-2 account-link hover:text-white"
+              >Sign Out</a
+            >
+          </div>
+        </div>
+      </header>
+
+      <!-- Mobile Header & Nav -->
+      <header
+        x-data="{ isOpen: false }"
+        class="w-full bg-sidebar py-5 px-6 sm:hidden"
+      >
+        <div class="flex items-center justify-between">
+          <a
+            href="index.html"
+            class="
+              text-white text-3xl
+              font-semibold
+              uppercase
+              hover:text-gray-300
+            "
+            >Admin</a
+          >
+          <button
+            @click="isOpen = !isOpen"
+            class="text-white text-3xl focus:outline-none"
+          >
+            <i x-show="!isOpen" class="fas fa-bars"></i>
+            <i x-show="isOpen" class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Dropdown Nav -->
+        <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
+          <a
+            href="index.html"
+            class="
+              flex
+              items-center
+              active-nav-link
+              text-white
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-tachometer-alt mr-3"></i>
+            Dashboard
+          </a>
+          <a
+            href="blank.html"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-sticky-note mr-3"></i>
+            Blank Page
+          </a>
+          <a
+            href="tables.html"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-table mr-3"></i>
+            Tables
+          </a>
+          <a
+            href="forms.html"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-align-left mr-3"></i>
+            Forms
+          </a>
+          <a
+            href="tabs.html"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-tablet-alt mr-3"></i>
+            Tabbed Content
+          </a>
+          <a
+            href="calendar.html"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-calendar mr-3"></i>
+            Calendar
+          </a>
+          <a
+            href="#"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-cogs mr-3"></i>
+            Support
+          </a>
+          <a
+            href="#"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-user mr-3"></i>
+            My Account
+          </a>
+          <a
+            href="#"
+            class="
+              flex
+              items-center
+              text-white
+              opacity-75
+              hover:opacity-100
+              py-2
+              pl-4
+              nav-item
+            "
+          >
+            <i class="fas fa-sign-out-alt mr-3"></i>
+            Sign Out
+          </a>
+        </nav>
+        <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <i class="fas fa-plus mr-3"></i> New Report
+            </button> -->
+      </header>
+
+      <div class="w-full overflow-x-hidden border-t flex flex-col">
+        <main class="flex flex-col w-full p-6 justify-center">
+          <div class="mb-5">
+            <a
+              class="
+                flex-shrink-0
+                bg-blue-600
+                text-white text-base
+                font-semibold
+                py-2
+                px-4
+                rounded-lg
+                shadow-md
+                hover:bg-blue-800
+                focus:outline-none
+                focus:ring-2
+                focus:ring-blue-500
+                focus:ring-offset-2
+                focus:ring-offset-blue-200
+              "
+              href="{% url 'evaluation_employee' %}"
+            >
+              Go back
+            </a>
+          </div>
+          <div class="bg-white shadow-lg rounded-lg mx-2">
+            <div class="md:flex">
+              <div class="w-full p-2 px-3 py-3">
+                <!-- <div class="mb-2 text-2xl">
+                  Evaluator: {{ data.evaluator_name|default:"Anonymous" }}
+                </div> -->
+                <div class="mb-2 text-2xl">
+                  Employee: {{ data.employee_name }}
+                </div>
+                <h1
+                  class="
+                    font-sans
+                    bg-black bg-cover
+                    text-white text-3xl
+                    rounded
+                    text-center
+                  "
+                >
+                  EVALUATION CODE
+                </h1>
+                <h2 class="rounded-sm border-solid border-2 flex flex-row mt-2">
+                  <div
+                    class="flex flex-grow font-semibold justify-center text-2xl"
+                  >
+                    U = Unsatisfactory
+                  </div>
+                  <div
+                    class="flex flex-grow font-semibold justify-center text-2xl"
+                  >
+                    F = Fair
+                  </div>
+                  <div
+                    class="flex flex-grow font-semibold justify-center text-2xl"
+                  >
+                    S = Satisfactory
+                  </div>
+                  <div
+                    class="flex flex-grow font-semibold justify-center text-2xl"
+                  >
+                    V = Very Satisfactory
+                  </div>
+                </h2>
+                <div class="mt-2">
+                  <div class="flex flex-row">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div
+                        class="flex flex-grow w-64 justify-start text-2xl"
+                      ></div>
+                      <div class="flex flex-grow w-64"></div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        U
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        F
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        S
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        V
+                      </div>
+                    </div>
+                  </div>
+                 <div class="flex flex-row bg-blue-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4">JOB UNDERSTANDING</div>
+                  </div>
+                
+                  {% for x in job_understanding %}
+                  <div class="flex flex-row {% if forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="md:flex-row flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.question }}                        
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Unsatisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Fair" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Satisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Very Satisfactory" %} checked {% endif %}
+                      />
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="flex flex-row bg-red-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">JOB SKILLS</div>
+                  </div>
+                  {% for x in job_skills %}
+                  <div class="flex flex-row {% if not forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.question }}
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Unsatisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Fair" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Satisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Very Satisfactory" %} checked {% endif %}
+                      />
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="flex flex-row bg-blue-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">ATTITUDE</div>
+                  </div>
+                  {% for x in attitude %}
+                  <div class="flex flex-row {% if not forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.question }}
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Unsatisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Fair" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Satisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Very Satisfactory" %} checked {% endif %}
+                      />
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="flex flex-row bg-red-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">
+                      JOB RULES AND REGULATIONS
+                    </div>
+                  </div>
+                  {% for x in job_rules_and_regulations %}
+                  <div class="flex flex-row {% if not forloop.counter0|divisibleby:2 %} bg-gray-300 {% endif %} flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        {{ x.question }}
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Unsatisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Fair" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Satisfactory" %} checked {% endif %}
+                      />
+                      <input
+                        type="radio"
+                        name="{{x}}"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                        {% if x.answer == "Very Satisfactory" %} checked {% endif %}
+                      />
+                    </div>
+                  </div>
+                  {% endfor %}
+                 <!--  <div class="flex flex-row">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-64 justify-end text-2xl">
+                        Section Subtotal:
+                      </div>
+                      <div class="flex flex-grow w-64 text-2xl justify-center">{{ ratings.job_rules_and_regulations }}</div>
+                    </div>
+                  </div> -->
+                  <br>
+                  <div class="flex flex-row bg-yellow-400 rounded-lg py-2">
+                    <div class="flex flex-grow justify-center">
+                      <!-- <div class="flex flex-grow w-64 font-bold justify-center text-2xl font-sans font-family-apple-system">
+                        OVERALL TOTAL: {{ ratings.overall_total }}
+                      </div> -->
+                      <div class="flex flex-grow w-64 font-bold text-2xl justify-center font-sans font-family-apple-system">RATING: {{ ratings.descriptive_rating }}</div>
+                    </div>
+                  </div>
+                  <div class="w-full md:w-auto px-3 justify-center">
+                    <label
+                      class="
+                        block
+                        uppercase
+                        tracking-wide
+                        text-gray-700 text-2xl
+                        font-bold
+                        mb-2
+                        mt-2
+                      "
+                      for="grid-last-name"
+                      >Comments and Recomendations</label
+                    >
+                    <input
+                      class="
+                        appearance-none
+                        block
+                        w-full
+                        bg-gray-200
+                        text-gray-700
+                        border border-gray-200
+                        rounded
+                        py-3
+                        px-4
+                        leading-tight
+                        focus:outline-none focus:bg-white focus:border-gray-500
+                      "
+                      name="comments"
+                      type="text"
+                      value="{{ data.comments_and_recommendations }}"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- AlpineJS -->
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <!-- Font Awesome -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+      integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

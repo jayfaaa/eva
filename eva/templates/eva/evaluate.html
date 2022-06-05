@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eva</title>
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Karla:400,700&display=swap");
+      .font-family-karla {
+        font-family: karla;
+      }
+      .bg-sidebar {
+        background: #3d68ff;
+      }
+      .cta-btn {
+        color: #3d68ff;
+      }
+      .upgrade-btn {
+        background: #1947ee;
+      }
+      .upgrade-btn:hover {
+        background: #0038fd;
+      }
+      .active-nav-link {
+        background: #1947ee;
+      }
+      .nav-item:hover {
+        background: #1947ee;
+      }
+      .account-link:hover {
+        background: #3d68ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w-full overflow-x-hidden border-t flex flex-col">
+      <main class="flex w-full p-6 justify-center">
+        <form class="w-11/12" action="{% url 'post_evaluate' %}" method="post">
+          {% csrf_token %}
+          <div class="flex flex-col flex-row -mx-3 mb-6 max-w-6xl mx-auto">
+            <div class="w-full px-3">
+                <div class="flex flex-grow justify-start">
+                      <a
+                        class="
+                          flex-shrink-0
+                          bg-blue-600
+                          text-white text-base
+                          font-semibold
+                          py-2
+                          px-4
+                          rounded-lg
+                          shadow-md
+                          hover:bg-blue-800
+                          focus:outline-none
+                          focus:ring-2
+                          focus:ring-blue-500
+                          focus:ring-offset-2
+                          focus:ring-offset-blue-200
+                        "
+                        href = "{% url 'index' %}"
+                      >
+                        Back
+                      </a>
+                    </div><br>
+              <label
+                class="
+                  block
+                  uppercase
+                  tracking-wide
+                  text-gray-700 text-xs
+                  font-bold
+                  mb-2
+
+                "
+                for="grid-last-name"
+              >   
+                NAME <i>(optional)</i>
+              </label>
+              <input
+                class="
+                  appearance-none
+                  block
+                  w-full
+                  bg-gray-200
+                  text-gray-700
+                  border border-gray-200
+                  rounded
+                  py-3
+                  px-4
+                  leading-tight
+                  focus:outline-none focus:bg-white focus:border-gray-500
+                "
+                name="evaluator"
+                type="text"
+                placeholder="Doe"
+              />
+            </div>
+            {% if employees %}
+            <div class="w-full px-3 mb-6 md:mb-0">
+              <label
+                class="
+                  block
+                  uppercase
+                  tracking-wide
+                  text-gray-700 text-xs
+                  font-bold
+                  mb-2
+                  mt-5
+                "
+                for="grid-first-name"
+              >
+                EMPLOYEE NAME
+              </label>
+              <select
+                class="
+                  block
+                  appearance-none
+                  w-full
+                  bg-gray-200
+                  border border-gray-200
+                  text-gray-700
+                  py-3
+                  px-4
+                  pr-8
+                  rounded
+                  leading-tight
+                  focus:outline-none focus:bg-white focus:border-gray-500
+                "
+                name="employee"
+              >
+                {% for x in employees %}
+                <option value="{{ x.id }}">{{ x.first_name }} {{ x.last_name }}</option>
+                {% endfor %}
+              </select>
+              <p class="text-red-500 text-xs italic">
+                Please fill out this field.
+              </p>
+            </div>
+            {% else %}
+            <div class="w-full px-3 mb-6 md:mb-0">
+              <label
+                class="
+                  block
+                  uppercase
+                  tracking-wide
+                  text-gray-700 text-xs
+                  font-bold
+                  mb-2
+                  mt-5
+                "
+                for="grid-first-name"
+              >
+                EMPLOYEE NAME
+              </label>
+              <p class="text-red-500 text-xs italic">
+                No employees data!
+              </p>
+            </div>
+            {% endif %}
+          </div>
+          <div
+            class="
+              bg-white
+              shadow-lg
+              rounded-lg
+              flex flex-col flex-row -mx-3 mb-6 max-w-6xl mx-auto
+            "
+          >
+            <div class="w-full px-3">
+              <div class="w-full md:p-2 md:px-3 md:py-3">
+                <h1
+                  class="
+                    font-sans
+                    bg-black bg-cover
+                    text-white 
+                    md:text-3xl
+                    rounded
+                    text-center
+                  "
+                >
+                  EVALUATION CODE
+                </h1>
+                <h2 class="rounded-sm border-solid border-2 md:flex md:flex-row md:justify-center">
+                  <div
+                    class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    U = Unsatisfactory
+                  </div>
+                  <div
+                  class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    F = Fair
+                  </div>
+                  <div
+                  class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    S = Satisfactory
+                  </div>
+                  <div
+                    class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4"
+                  >
+                    V = Very Satisfactory
+                  </div>
+                </h2>
+                <div class="mt-2">
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div
+                        class="flex flex-grow w-64 justify-start text-2xl"
+                      ></div>
+                      <div class="flex flex-grow w-64"></div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        U
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        F
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        S
+                      </div>
+                      <div
+                        class="
+                          flex flex-grow
+                          w-16
+                          font-semibold
+                          justify-center
+                          text-2xl
+                        "
+                      >
+                        V
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-blue-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="md:flex-row flex-grow font-semibold justify-center  md:text-2xl lg:text-2xl mb-4">JOB UNDERSTANDING</div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="md:flex-row flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee know how to do the job completely and
+                        correctly?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="j1"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j1"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j1"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j1"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee execute his/her job accurately?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="j2"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j2"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j2"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j2"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee manage to accomplish his/her task and
+                        duties in the given time?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="j3"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j3"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j3"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j3"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee establish a solid set of expectations
+                        for the company?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="j4"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j4"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j4"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j4"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee fulfill his/her duties on time?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="j5"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j5"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j5"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="j5"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-red-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">JOB SKILLS</div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee process the skills necessary to
+                        accomplish the job?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="s1"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s1"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s1"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s1"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee a great problem solver?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="s2"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s2"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s2"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s2"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee contribute to the company with his/her
+                        skill in any situation?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="s3"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s3"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s3"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s3"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Is the employee knows how to negotiate?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="s4"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s4"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s4"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s4"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Is the employee flexible and organize in his/her job?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="s5"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s5"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s5"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="s5"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-blue-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">ATTITUDE</div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee demonstrate a positive attitude &
+                        enthusiasm for the job
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="a1"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a1"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a1"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a1"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Was the employee have patience in the work assigned to
+                        her/him?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="a2"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a2"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a2"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a2"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col bg-gray-300">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Was he/she able to manage work under pressure?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="a3"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a3"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a3"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a3"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Is the employee easily accessible during overtime works?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="a4"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a4"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a4"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a4"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Does the employee knows how to manage his/her time
+                        during work tasks?
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="a5"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a5"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a5"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="a5"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-red-400 mt-2">
+                    <div class="flex flex-grow-0 w-12"></div>
+                    <div class="font-semibold text-2xl">
+                      JOB RULES AND REGULATIONS
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start text-2xl">
+                        Wearing proper dress code
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="r1"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r1"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r1"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r1"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Awareness for particular hazards & risks
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="r2"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r2"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r2"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r2"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Follow the exact time of entering the work place (office
+                        hour)
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="r3"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r3"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r3"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r3"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row bg-gray-300 flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start md:text-2xl">
+                        Maintain office confidently
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="r4"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r4"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r4"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r4"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-col">
+                    <div class="flex flex-grow justify-center">
+                      <div class="flex flex-grow w-12"></div>
+                      <div class="flex flex-grow w-64 justify-start text-2xl">
+                        Follow rules and regulations
+                      </div>
+                      <div class="flex flex-grow w-64"></div>
+                      <input
+                        type="radio"
+                        name="r5"
+                        value="Unsatisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r5"
+                        value="Fair"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r5"
+                        value="Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                      <input
+                        type="radio"
+                        name="r5"
+                        value="Very Satisfactory"
+                        class="flex flex-grow w-16 justify-center self-center"
+                      />
+                    </div>
+                  </div>
+                  <div class="w-full md:w-auto px-3 justify-center">
+                    <label
+                      class="
+                        block
+                        uppercase
+                        tracking-wide
+                        text-gray-700 text-2xl
+                        font-bold
+                        mb-2
+                        mt-2
+                      "
+                      for="grid-last-name"
+                      >Comments and Recomendations</label
+                    >
+                    <input
+                      class="
+                        appearance-none
+                        block
+                        w-full
+                        bg-gray-200
+                        text-gray-700
+                        border border-gray-200
+                        rounded
+                        py-3
+                        px-4
+                        leading-tight
+                        focus:outline-none focus:bg-white focus:border-gray-500
+                      "
+                      name="comments"
+                      type="text"
+                      required
+                    />
+                  </div>
+                  <div class="flex flex-row flex-wrap mt-6 self-auto">
+                    <div class="flex flex-grow justify-center">
+                      <button
+                        class="
+                          flex-shrink-0
+                          bg-blue-600
+                          text-white text-base
+                          font-semibold
+                          py-2
+                          px-4
+                          rounded-lg
+                          shadow-md
+                          hover:bg-blue-800
+                          focus:outline-none
+                          focus:ring-2
+                          focus:ring-blue-500
+                          focus:ring-offset-2
+                          focus:ring-offset-blue-200
+                        "
+                      >
+                        Submit Form
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </main>
+    </div>
+    <!-- AlpineJS -->
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <!-- Font Awesome -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+      integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

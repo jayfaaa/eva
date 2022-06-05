@@ -1,0 +1,263 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" /> -->
+<script src="https://cdn.tailwindcss.com"></script>
+<div id="out" class="modal">
+  <p class="text-center">Do you want to logout?
+    <a class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center mt-2"
+    href ="{% url 'logout' %}">
+      Logout
+    </a></p>
+</div>
+<aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
+  <div class="p-6">
+    <a
+      href="{% url 'app' %}"
+      class="text-white text-3xl font-semibold uppercase hover:text-gray-300"
+      >Eva</a
+    >
+  </div>
+  <nav class="text-white text-base font-semibold pt-3">
+    <a
+      href="{% url 'app' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-tachometer-alt mr-3"></i>
+      Dashboard
+    </a>
+    <div x-data={show:false} class="rounded-sm">
+      <button @click="show=!show" class=" flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item w-full" type="button"><i class="fas fa-question mr-3"></i>
+        Question Bank &nbsp;&nbsp;&nbsp;<i class="fas fa-angle-down mr-3"></i>
+      </button>
+      <div x-show="show" class="w-full">
+      <a href="{% url 'questions' %}" class=" flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item w-full" >
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Question
+      </a>
+    <a
+      href="{% url 'question_categories' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+        w-full
+      "
+    >
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Categories
+    </a>
+      </div>
+  </div>
+  <div x-data={show:false} class="rounded-sm">
+    <button @click="show=!show" class=" flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item w-full" type="button">
+      <i class="fas fa-sticky-note mr-3"></i>Evaluation Form &nbsp;&nbsp;&nbsp;<i class="fas fa-angle-down mr-3"></i>
+    </button>
+    <div x-show="show" class="w-full">
+      <a
+    href="{% url 'evaluate_admin' %}"
+    class="
+      flex
+      items-center
+      text-white
+      opacity-75
+      hover:opacity-100
+      py-4
+      pl-6
+      nav-item
+    "
+  >
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Evaluate
+  </a>
+</a>
+  <a
+  href="{% url 'evaluate_group_admin' %}"
+  class="
+    flex
+    items-center
+    text-white
+    opacity-75
+    hover:opacity-100
+    py-4
+    pl-6
+    nav-item
+  "
+  >
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Evaluate Group
+  </a>
+  <a
+  href="{% url 'evaluation' %}"
+  class="
+    flex
+    items-center
+    text-white
+    opacity-75
+    hover:opacity-100
+    py-4
+    pl-6
+    nav-item
+  "
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Evaluation List
+</a>
+    </div>
+  </div>
+<a
+      href="{% url 'ranking' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-trophy mr-3"></i>
+      Ranking
+    </a>
+    <!-- <a
+      href="{% url 'question_categories' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-question mr-3"></i>
+      Question Categories
+    </a>
+    <a
+      href="{% url 'questions' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-question mr-3"></i>
+      Questions
+    </a> -->
+    <a
+      href="{% url 'departments' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-building mr-3"></i>
+      Departments
+    </a>
+    <a
+      href="{% url 'employees' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-users mr-3"></i>
+      Employees
+    </a>
+    <a
+      href="{% url 'reports' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-chart-bar mr-3"></i>
+      Reports
+    </a>
+    <a
+      href="{% url 'settings' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-cog mr-3"></i>
+      Settings
+    </a>
+    <a
+      href="{% url 'about' %}"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+      <i class="fas fa-cog mr-3"></i>
+      About
+    </a>
+    <a
+      href="#out" rel="modal:open"
+      class="
+        flex
+        items-center
+        text-white
+        opacity-75
+        hover:opacity-100
+        py-4
+        pl-6
+        nav-item
+      "
+    >
+
+      <i class="fas fa-sign-out-alt mr-3"></i>
+      Signout
+    </a>
+  </nav>
+</aside>
